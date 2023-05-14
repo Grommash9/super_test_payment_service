@@ -38,7 +38,7 @@ class NumberInformation(BaseModel):
 
 
 @formatted_router.post('/payment', tags=['Створення виплати'], dependencies=[Depends(RateLimiter(seconds=1))])
-async def receive_callback_secret(payout: NumberInformation, request: Request, token: str = Depends(token_auth_scheme)):
+async def create_new_payment(payout: NumberInformation, request: Request, token: str = Depends(token_auth_scheme)):
     if token.credentials != '$HIG#IRHRF#gn3ljpgHEIROF42IGHPOWJF':
         raise HTTPException(401, detail='Please check the entry of the api key in the Authorization header ')
 

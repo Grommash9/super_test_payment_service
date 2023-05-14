@@ -10,7 +10,7 @@ token_auth_scheme = HTTPBearer()
 
 
 @formatted_router.get('/payment', tags=['Інформація'], dependencies=[Depends(RateLimiter(seconds=1))])
-async def get_payout_status_list(request: Request, uuid: str, token: str = Depends(token_auth_scheme)):
+async def get_payment_status(request: Request, uuid: str, token: str = Depends(token_auth_scheme)):
     if token.credentials != '$HIG#IRHRF#gn3ljpgHEIROF42IGHPOWJF':
         raise HTTPException(401, detail='Please check the entry of the api key in the Authorization header ')
 
@@ -20,7 +20,7 @@ async def get_payout_status_list(request: Request, uuid: str, token: str = Depen
 
 
 @formatted_router.get('/status_list', tags=['Інформація'], dependencies=[Depends(RateLimiter(seconds=1))])
-async def receive_callback_secret(request: Request):
+async def get_status_list_info(request: Request):
     status_list = await db_methods.admin_panel_paymentstatus.get_all()
     return JSONResponse(content={
         'message': 'ok', 'status_list': status_list},
