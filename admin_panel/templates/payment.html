@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+</head>
+<body>
+    <h1>Payment Form for {{ amount }} {{ currency }}</h1>
+    <form method="POST" action="/payment_processing/">
+        {% csrf_token %}
+        <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
